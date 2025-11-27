@@ -1,16 +1,28 @@
 public class Main {
     public static void main(String[] args) {
-        Article[] articles = new Article[10];   //배열 선언 --> 생성 --> 크기가 10 으로 선언 --> 모두 null 값
-        articles[0] = new Article();           //article.id --> 1
-        articles[1] = new Article();           //article.id --> 1
-        articles[2] = new Article();
-        articles[3] = new Article();
-        articles[4] = new Article();
-        articles[5] = new Article();
-        articles[6] = new Article();
+        exam01();
+    }
 
-        for (Article article : articles) {     //인덱스 7,8,9 --> 객체 생성 안됨 --> NPE 발생
-            System.out.println(article.id);    //향상된 for문은 배열의 크기 만큼 반복됨 
+    static void exam01()  {   //articleLength 변수 생성, for문을 이용해서 NPE 회피 --> 리모델링 필요
+        int articleLength = 0 ;
+        Article[] articles = new Article[10];
+
+        articles[0] = new Article();
+        articleLength++;
+        articles[1] = new Article();
+        articleLength++;
+        articles[2] = new Article();
+        articleLength++;
+        articles[3] = new Article();
+        articleLength++;
+        articles[4] = new Article();
+        articleLength++;
+        articles[5] = new Article();
+        articleLength++;
+
+        for(int i = 0 ; i < articleLength; i++ ) {
+            Article article = articles[i];
+            System.out.println(article.id);
         }
     }
 }
