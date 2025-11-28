@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;       // Ctrl + Alt + L --> 자동 import , 포맷 재구성
 
-public class Main {
+class Main {
     public static void main(String[] args) {
 //        exam01();
 //        exam02();
