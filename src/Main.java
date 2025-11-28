@@ -1,7 +1,11 @@
+import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
         exam01();
+        exam02();
     }
+
 
     static void exam01()  {   //articleLength 변수 생성, for문을 이용해서 NPE 회피 --> 리모델링 필요
         int articleLength = 0 ;
@@ -25,6 +29,28 @@ public class Main {
             System.out.println(article.id);
         }
     }
+    static void exam02() {
+        ArrayList articles = new ArrayList();   //ArrayList
+//        articles.add(articles);               //Object는 모든 타입을 받을 수 있음
+//        articles.add("asf");
+//        articles.add(1);
+//        articles.add(false);
+//        articles.add(120.44);
+        articles.add(new Article());
+        articles.add(new Article());
+        articles.add(new Article());
+        articles.add(new Article());
+        articles.add(new Article());
+        articles.add(new Article());
+
+        System.out.println(articles);  // toString() 호출 , List는 [o , o, o] 형태로 출력됨
+
+        for (int i =0 ; i < articles.size() ; i++ ) {   // size() --> ArrayList 타입의 배열의 크기를 가져옴
+            Article article =(Article) articles.get(i);  //강제 형변환,   get(i)는 return 타입이 Object(모든 class 부모)
+            System.out.println();
+        }
+    }
+
 }
 
 class Article {
@@ -43,4 +69,11 @@ class Article {
         Article(int id) {
             this.id = id;
         }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id=" + id +
+                '}';
+    }
 }
