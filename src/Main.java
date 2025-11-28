@@ -2,8 +2,9 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        exam01();
-        exam02();
+//        exam01();
+//        exam02();
+        exam03();
     }
 
 
@@ -49,6 +50,24 @@ public class Main {
             Article article =(Article) articles.get(i);  //강제 형변환,   get(i)는 return 타입이 Object(모든 class 부모)
             System.out.println();
         }
+    }
+    static void exam03() {
+        ArrayList<Article> articles = new ArrayList<>();  //제너릭 사용 --> 'E' Article 지정       articles.add(new Article());
+        articles.add(new Article());
+        articles.add(new Article());
+        articles.add(new Article());
+        articles.add(new Article());
+        articles.add(new Article());
+
+        for(Article article : articles) {   //향상된 for문도 잘 수행
+           System.out.println(article.id);
+        }
+
+//        for (int i =0 ; i < articles.size() ; i++ ) {
+//            Article article = articles.get(i);    // 강제형변환을 안해도 된다
+//            System.out.println(article.id);
+//        }
+
     }
 
 }
