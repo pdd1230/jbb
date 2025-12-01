@@ -51,6 +51,11 @@ public class Main {
 
                 articles.add(article);
                 id++;
+            } else if (cmd.startsWith("article detail")) { //startswith() 특정 문자열로 문자열 시작? -> trus or false
+                String[] cmdBits = cmd.split(" ");    //split(" ")  "  " 구분자로 문자열 분리해서 배열로 return
+                System.out.println(cmdBits[0]);
+                System.out.println(cmdBits[1]);
+                System.out.println(cmdBits[2]);
             } else {
                 System.out.println("존재하지 않는 명령어 입니다");
             }
