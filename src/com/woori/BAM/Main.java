@@ -26,10 +26,10 @@ public class Main {
                     System.out.println("게시글이 없습니다");
                     continue;
                 }
-                System.out.println("번호  |   제목");
+                System.out.println("번호  |   제목   |  내용  |       regDate    |   조회수");
                 for (int i = articles.size() - 1; i >= 0; i--) {
                     Article article = articles.get(i);
-                    System.out.printf("%d    |    %s   |  %s  |   %s \n", article.id, article.title, article.body, article.regDate  );  //static 메서드 호출
+                    System.out.printf("%d    |    %s   |  %s  |   %s  |  %d\n", article.id, article.title, article.body, article.regDate , article.viewCnt );  //static 메서드 호출
                 }
             } else if (cmd.equals("article write")) {
                 System.out.print("제목 : ");
@@ -39,7 +39,7 @@ public class Main {
                 System.out.println(lastArticleID + " 번글이 생성되었습니다");
 
 
-                Article article = new Article(lastArticleID, title, body, Util.getDateStr()); // 현재 날짜+시간 불러오기 --> Util.getDataStr()
+                Article article = new Article(lastArticleID, title, body, Util.getDateStr(),0 ); // viewCnt --> write 실행, 저장 --> viewCnt --> 0 이다
 
                 articles.add(article);
                 lastArticleID++;
@@ -59,7 +59,8 @@ public class Main {
                 }
                 for (Article article : articles) {
                     if (article.id == id) {
-                        foundArticle = article;   //search 성공시 article 객체를 --> foundArticle 대입
+                        foundArticle = article;   //search 성공시 article 객체를 --> foundArticle 대입 -->
+                                                  //article.viewCnt --> 값이 0 --> 이유: 객체가 생성시 초기화 안되면 --> 무조건 초기값으로 저장
                         break;  //for문을 빠져나감
                     }
                 }
@@ -67,11 +68,17 @@ public class Main {
                     System.out.printf("%d번 게시물이 존재하지 않습니다\n", id);
                     continue; //while문을 다시 시작해라
                 }
+
+                foundArticle.viewCnt++;  // 객체의 viewCnt++ --> deatil ~ 실행이 되면 1씩 증가함
+
                 // serach후 detail 내용 출력
                 System.out.println("번호 : " + foundArticle.id);
                 System.out.println("날짜 : " + foundArticle.regDate); //날짜 + 시간 출력
                 System.out.println("제목 : " + foundArticle.title);
                 System.out.println("내용 : " + foundArticle.body);
+                System.out.println("조회수 : " + foundArticle.viewCnt);
+
+
             } else {
                 System.out.println("존재하지 않는 명령어 입니다");
             }
@@ -85,11 +92,13 @@ class Article {
     String title;
     String body;
     String regDate;  // 필드 추가 --> yyyy-mm-dd hh:mm:ss
+    int viewCnt;
 
-    public Article(int lastArticleID, String title, String body, String regDate) {
+    public Article(int lastArticleID, String title, String body, String regDate , int viewCnt) {
         this.id = lastArticleID;
         this.title = title;
         this.body = body;
-        this.regDate = regDate;    // system(PC) 날짜 + 시간 이 String 저장
+        this.regDate = regDate;
+        this.viewCnt = viewCnt;   // 필드 추가 , viewCnt
     }
 }
