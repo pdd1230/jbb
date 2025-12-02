@@ -52,9 +52,19 @@ public class Main {
                 String[] cmdBits = cmd.split(" ");    //split(" ")  "  " 구분자로 문자열 분리해서 배열로 return
 //                System.out.println(cmdBits[0]);
 //                System.out.println(cmdBits[1]);
-//                System.out.println(cmdBits[2]);   //"1" --> 문자를 숫자로 변환 로직
+//                System.out.println(cmdBits[2]);
                 Article foundArticle = null ;  // foundArticle 용도는 'null check' 사용
-                int id = Integer.parseInt(cmdBits[2]);
+                int id = 0;  // 변수 id가 try문 추가함으로 인해 지역변수화 --> 선언 위치 조정 --> 조금더 큰 지역변수로 선언/초기화
+
+                try {
+                    id = Integer.parseInt(cmdBits[2]); //"1" --> 문자를 숫자로 변환 로직
+
+                } catch (NumberFormatException e) {   // (예외타입 변수명)
+                    System.out.println("정수를 입력하시길 바랍니다");
+                    continue;   // while 다시 실행해
+                } catch (Exception e) {
+                    //(그밖에 모든 Exception 변수명)
+                }
 
                 for(Article article : articles) {
                     if (article.id == id) {
