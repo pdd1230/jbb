@@ -14,10 +14,13 @@ public class Main {
         while (true) {
             System.out.printf("cmd) ");
             String cmd = sc.nextLine().trim();
-            System.out.println("명령어) " + cmd);
+//            System.out.println("명령어) " + cmd);  중복으로 제거
             if (cmd.length() == 0) {
                 System.out.println("명령어를 입력해 주세요");
                 continue;
+            }
+            if (cmd.equals("exit")) {
+                break;
             }
             if ( cmd.equals("article list")) {
                 if (articles.size() == 0) {           // size() 공부,  누구의 메서드?
@@ -25,21 +28,23 @@ public class Main {
                      continue;
                 }
                 System.out.println("번호  |   제목");
-                for(int i = 0 ; i < articles.size() ; i++ ) {
+                for(int i = articles.size() - 1 ; i >= 0 ; i-- ) {    //articles 역순으로 출력
                    Article article= articles.get(i);
                     System.out.printf("%d    |    %s\n" , article.id, article.title);
                 }
             } else if (cmd.equals("article write")) {
-                System.out.print("제목 :");
+                System.out.print("제목 : ");
                 String title = sc.nextLine();
-                System.out.println("내용 :");
+                System.out.print("내용 : ");
                 String body = sc.nextLine();
                 System.out.println(lastArticleID + " 번글이 생성되었습니다");
 
-                Article article = new Article();
-                article.id = lastArticleID;
-                article.title = title;
-                article.body = body;
+//                Article article = new Article();  //default 생성자
+                Article article = new Article(lastArticleID, title, body); // 인자를 통해 생성자 호출
+
+//                article.id = lastArticleID;
+//                article.title = title;
+//                article.body = body;
 
                 articles.add(article);
                 lastArticleID++;
@@ -69,9 +74,6 @@ public class Main {
             } else {
                 System.out.println("존재하지 않는 명령어 입니다");
             }
-            if (cmd.equals("exit")) {
-                break;
-            }
         }
         System.out.println("== 프로그램 종료 ==");
     }
@@ -80,4 +82,10 @@ class Article {
     int id;
     String title;
     String body;
+
+    public Article(int lastArticleID, String title, String body) {  //생성자를 통해서 초기화 작업
+                this.id = lastArticleID;
+                this.title = title;
+                this.body = body;
+    }
 }
