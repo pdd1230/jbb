@@ -67,7 +67,7 @@ public class Main {
                     continue; //while문을 다시 시작해라
                 }
 
-                foundArticle.viewCnt++;
+                foundArticle.increaseViewCnt();
 
                 // serach후 detail 내용 출력
                 System.out.println("번호 : " + foundArticle.id);
@@ -161,5 +161,9 @@ class Article {
         this.body = body;
         this.regDate = regDate;
         this.viewCnt = viewCnt;
+    }
+
+    void increaseViewCnt() {
+        this.viewCnt++ ;
     }
 }
