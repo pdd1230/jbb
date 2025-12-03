@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    // static 멤버 필드
-    static int lastArticleId = 1;  // lastArticleId --> 전역변수
-    static List<Article> articles = new ArrayList<>();  //articles --> 전역변수
 
+    static int lastArticleId;  // lastArticleId 선언--> 전역변수
+    static List<Article> articles ;  //articles 선언 --> 전역변수
 
     public static void main(String[] args) {
 
+        System.out.println(2);
         System.out.println("== 프로그램 시작 ==");
         Scanner sc = new Scanner(System.in);
         //일반 메서드는 호출 불가
@@ -154,9 +154,16 @@ public class Main {
     }
 
     static void makeTestData() {  // static 메서드안에서는 static 멤버 필드를 사용한다, 일반 멤버 필드는 사용불가
+        System.out.println(3);
         for(int i = 1; i <= 500 ; i++ ) {
             articles.add(new Article(lastArticleId++,"제목" + i, "내용" + i, Util.getDateStr(), i * 10)) ;
         }
+    }
+
+    static {
+        System.out.println(1);
+        articles = new ArrayList<>();
+        lastArticleId = 1 ;
     }
 }
 
