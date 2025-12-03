@@ -4,11 +4,17 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+    // static 멤버 필드
+    static int lastArticleID = 1;  // lastArticleId --> 전역변수
+    static List<Article> articles = new ArrayList<>();  //articles --> 전역변수
+
+
     public static void main(String[] args) {
+
         System.out.println("== 프로그램 시작 ==");
         Scanner sc = new Scanner(System.in);
-        int lastArticleID = 1;
-        List<Article> articles = new ArrayList<>();
+        //일반 메서드는 호출 불가
+        makeTestData();   //  makeTestData() --> 메서드가 static 메서드 일수 밖에 없는 이유
 
         while (true) {
             System.out.printf("cmd) ");
@@ -145,6 +151,15 @@ public class Main {
             }
         }
         System.out.println("== 프로그램 종료 ==");
+    }
+
+    static void makeTestData() {  // static 메서드안에서는 static 멤버 필드를 사용한다, 일반 멤버 필드는 사용불가
+        Article ar1 = new Article(lastArticleID++ ,"제목1", "내용1",Util.getDateStr(),10) ;
+        articles.add(ar1);
+        Article ar2 = new Article(lastArticleID++ ,"제목2", "내용2",Util.getDateStr(),20) ;
+        articles.add(ar2);
+        Article ar3 = new Article(lastArticleID++ ,"제목3", "내용3",Util.getDateStr(),30) ;
+        articles.add(ar3);
     }
 }
 
