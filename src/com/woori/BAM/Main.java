@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Main {
     // static 멤버 필드
-    static int lastArticleID = 1;  // lastArticleId --> 전역변수
+    static int lastArticleId = 1;  // lastArticleId --> 전역변수
     static List<Article> articles = new ArrayList<>();  //articles --> 전역변수
 
 
@@ -42,12 +42,12 @@ public class Main {
                 String title = sc.nextLine();
                 System.out.print("내용 : ");
                 String body = sc.nextLine();
-                System.out.println(lastArticleID + " 번글이 생성되었습니다");
+                System.out.println(lastArticleId + " 번글이 생성되었습니다");
 
-                Article article = new Article(lastArticleID, title, body, Util.getDateStr(),0 ); // viewCnt --> write 실행, 저장 --> viewCnt --> 0 이다
+                Article article = new Article(lastArticleId, title, body, Util.getDateStr(),0 ); // viewCnt --> write 실행, 저장 --> viewCnt --> 0 이다
 
                 articles.add(article);
-                lastArticleID++;
+                lastArticleId++;
             } else if (cmd.startsWith("article detail")) {
                 String[] cmdBits = cmd.split(" ");
                 Article foundArticle = null;
@@ -154,12 +154,9 @@ public class Main {
     }
 
     static void makeTestData() {  // static 메서드안에서는 static 멤버 필드를 사용한다, 일반 멤버 필드는 사용불가
-        Article ar1 = new Article(lastArticleID++ ,"제목1", "내용1",Util.getDateStr(),10) ;
-        articles.add(ar1);
-        Article ar2 = new Article(lastArticleID++ ,"제목2", "내용2",Util.getDateStr(),20) ;
-        articles.add(ar2);
-        Article ar3 = new Article(lastArticleID++ ,"제목3", "내용3",Util.getDateStr(),30) ;
-        articles.add(ar3);
+        for(int i = 1; i <= 500 ; i++ ) {
+            articles.add(new Article(lastArticleId++,"제목" + i, "내용" + i, Util.getDateStr(), i * 10)) ;
+        }
     }
 }
 
