@@ -38,7 +38,6 @@ public class Main {
                 String body = sc.nextLine();
                 System.out.println(lastArticleID + " 번글이 생성되었습니다");
 
-
                 Article article = new Article(lastArticleID, title, body, Util.getDateStr(),0 ); // viewCnt --> write 실행, 저장 --> viewCnt --> 0 이다
 
                 articles.add(article);
@@ -59,8 +58,7 @@ public class Main {
                 }
                 for (Article article : articles) {
                     if (article.id == id) {
-                        foundArticle = article;   //search 성공시 article 객체를 --> foundArticle 대입 -->
-                                                  //article.viewCnt --> 값이 0 --> 이유: 객체가 생성시 초기화 안되면 --> 무조건 초기값으로 저장
+                        foundArticle = article;
                         break;  //for문을 빠져나감
                     }
                 }
@@ -69,7 +67,7 @@ public class Main {
                     continue; //while문을 다시 시작해라
                 }
 
-                foundArticle.viewCnt++;  // 객체의 viewCnt++ --> deatil ~ 실행이 되면 1씩 증가함
+                foundArticle.viewCnt++;
 
                 // serach후 detail 내용 출력
                 System.out.println("번호 : " + foundArticle.id);
@@ -78,8 +76,71 @@ public class Main {
                 System.out.println("내용 : " + foundArticle.body);
                 System.out.println("조회수 : " + foundArticle.viewCnt);
 
+            } else if (cmd.startsWith("article modify")) {
+                    String[] cmdBits = cmd.split(" ");
+                    Article foundArticle = null;
+                    int id = 0;
 
-            } else {
+                    try {
+                        id = Integer.parseInt(cmdBits[2]);
+
+                    } catch (NumberFormatException e) {
+                        System.out.println("정수를 입력하시길 바랍니다");
+                        continue;   // while 다시 실행해
+                    } catch (Exception e) {
+                        //(그밖에 모든 Exception 변수명)
+                    }
+                    for (Article article : articles) {
+                        if (article.id == id) {
+                            foundArticle = article;
+                            break;  //for문을 빠져나감
+                        }
+                    }
+                    if (foundArticle == null) { //serarch 수행했으나 게시글이 없음
+                        System.out.printf("%d번 게시물이 존재하지 않습니다\n", id);
+                        continue; //while문을 다시 시작해라
+                    }
+                    // serach후 modify 내용 출력
+                    System.out.print("수정할 제목 :" );
+                    String title = sc.nextLine().trim();
+                    System.out.print("수정할 내용 :" );
+                    String body = sc.nextLine().trim();
+
+                    foundArticle.title = title;
+                    foundArticle.body = body;
+                    System.out.println(id + "번 게시물이 수정되었습니다");
+
+            } else if (cmd.startsWith("article delete")) {
+                String[] cmdBits = cmd.split(" ");
+                Article foundArticle = null;
+                int id = 0;
+
+                try {
+                    id = Integer.parseInt(cmdBits[2]);
+
+                } catch (NumberFormatException e) {
+                    System.out.println("정수를 입력하시길 바랍니다");
+                    continue;   // while 다시 실행해
+                } catch (Exception e) {
+                    //(그밖에 모든 Exception 변수명)
+                }
+                for (Article article : articles) {
+                    if (article.id == id) {
+                        foundArticle = article;
+                        break;  //for문을 빠져나감
+                    }
+                }
+                if (foundArticle == null) { //serarch 수행했으나 게시글이 없음
+                    System.out.printf("%d번 게시물이 존재하지 않습니다\n", id);
+                    continue; //while문을 다시 시작해라
+                }
+                // serach후 delete
+//                articles.remove(id-1);        //remove(int index) 1번 방식
+                articles.remove(foundArticle);  //remove(Object e)  2번 방식 --> 권장
+
+                System.out.println(id + "번 게시물이 삭제되었습니다");
+
+                } else {
                 System.out.println("존재하지 않는 명령어 입니다");
             }
         }
@@ -91,7 +152,7 @@ class Article {
     int id;
     String title;
     String body;
-    String regDate;  // 필드 추가 --> yyyy-mm-dd hh:mm:ss
+    String regDate;
     int viewCnt;
 
     public Article(int lastArticleID, String title, String body, String regDate , int viewCnt) {
@@ -99,6 +160,6 @@ class Article {
         this.title = title;
         this.body = body;
         this.regDate = regDate;
-        this.viewCnt = viewCnt;   // 필드 추가 , viewCnt
+        this.viewCnt = viewCnt;
     }
 }
